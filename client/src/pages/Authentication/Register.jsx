@@ -2,6 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import GoogleLogin from "../../components/Authentications/GoogleLogin";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Register = () => {
   const { createUser } = useAuth();
@@ -21,9 +23,22 @@ const Register = () => {
 
     const userData = { email, role, status, wishList };
 
-    // createUser(data.email, data.password);
+    createUser(data.email, data.password).then(() => {
+      axios.post("http://localhost:4000/users", userData).then((res) => {
+        if (res.data.insertedId) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "User registered succesfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+    });
+
     // navigate("/");
-    console.log(userData);
+    // console.log(userData);
   };
 
   return (
