@@ -1,6 +1,18 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
+  const { login } = useAuth();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => console.log(data);
+
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -13,7 +25,7 @@ const Login = () => {
           </p>
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <form className="card-body">
+          <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -22,8 +34,13 @@ const Login = () => {
                 type="email"
                 placeholder="email"
                 className="input input-bordered"
-                required
+                {...register("email", { required: true })}
               />
+              {errors.email && (
+                <p className="text-red-500 font-bold">
+                  Email Field Is Required
+                </p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
@@ -33,8 +50,18 @@ const Login = () => {
                 type="password"
                 placeholder="password"
                 className="input input-bordered"
-                required
+                {...register("password", { required: true, minLength: 6 })}
               />
+              {errors.password?.type === "required" && (
+                <p className="text-red-500 font-bold">
+                  Password Field Is Required
+                </p>
+              )}
+              {errors.password?.type === "minLength" && (
+                <p className="text-red-500 font-bold">
+                  Password Must Have 6 Charecter
+                </p>
+              )}
             </div>
             <div className="form-control mt-6">
               <button className="btn btn-primary">Login</button>
