@@ -24,18 +24,34 @@ const client = new MongoClient(uri, {
   },
 });
 
+const userCollection = client.db("gadgetShop").collection("users");
+const productsCollection = client.db("gadgetShop").collection("products");
+
 async function dbConnect() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
 
     // apis
+    // JWT
     app.post("/authentication", async (req, res) => {
       const userEmail = req.body;
       const token = jwt.sign(userEmail, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: "10d",
       });
       res.send({ token });
+    });
+
+    // INSERT USER
+    app.post("/users", async (req, res) => {
+      const user = req.body;
+      const query = { email: user.email };
+      const existingUser = await userCollection.findOne(query);
+      if (existingUser) {
+        return res.send({ message: "user already exists" });
+      }
+      const result = await userCollection.insertOne(user);
+      res.send(result);
     });
 
     // Send a ping to confirm a successful connection

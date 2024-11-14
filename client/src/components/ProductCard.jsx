@@ -3,7 +3,7 @@ const ProductCard = () => {
     <div className="card bg-base-100 shadow-xl">
       <figure>
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+          src="https://img.freepik.com/premium-photo/virtual-reality-glasses-tablet-with-headphones-gray-background-top-view_157927-7597.jpg?w=826"
           alt="Shoes"
         />
       </figure>
