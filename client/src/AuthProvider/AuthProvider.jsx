@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { app } from "../FirebaseConfig/Firebase.config";
+import axios from "axios";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -40,8 +41,23 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
-      console.log(currentUser);
+      // setLoading(false);
+      // console.log(currentUser);
+      if (currentUser) {
+        axios
+          .post(`http://localhost:4000/authentication`, {
+            email: currentUser.email,
+          })
+          .then((data) => {
+            if (data.data) {
+              localStorage.setItem("accessToken", data?.data?.token);
+              setLoading(false);
+            }
+          });
+      } else {
+        localStorage.removeItem("accessToken");
+        setLoading(false);
+      }
     });
 
     return () => {
