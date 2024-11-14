@@ -18,7 +18,7 @@ const UserDropdown = () => {
         className="dropdown-content menu bg-base-100 w-32 rounded-box z-[1] py-2 shadow"
       >
         <li>
-          <Link>DashBoard</Link>
+          <Link to={"/dashboard"}>DashBoard</Link>
         </li>
         <li>
           <button
