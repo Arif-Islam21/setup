@@ -1,9 +1,9 @@
-import ClimbingBoxLoader from "react-spinners";
+import { CircleLoader } from "react-spinners";
 
 const Loader = () => {
   return (
     <div className="min-h-screen flex justify-center items-center">
-      <ClimbingBoxLoader
+      <CircleLoader
         color="#56DDC3"
         loading={true}
         // cssOverride={override}
