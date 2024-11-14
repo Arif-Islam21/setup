@@ -9,7 +9,7 @@ const UserDropdown = () => {
       <div tabIndex={0} role="button">
         <div className="avatar">
           <div className=" w-10 rounded-full">
-            <img src={user?.photoURL ? user?.photoURL : avater} />
+            <img src={user?.photoURL || avater} />
           </div>
         </div>
       </div>
