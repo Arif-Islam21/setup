@@ -1,6 +1,9 @@
 import { useForm } from "react-hook-form";
+import useAuth from "../../../Hooks/useAuth";
+import axios from "axios";
 
 const AddProducts = () => {
+  const { user } = useAuth();
   const {
     register,
     handleSubmit,
@@ -8,7 +11,34 @@ const AddProducts = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    const { Category, Stock, photoURL, brand, description, price, title } =
+      data;
+    const sellerEmail = user?.email;
+    const stockInt = parseFloat(Stock);
+    const priceInt = parseFloat(price);
+
+    const product = {
+      Category,
+      brand,
+      description,
+      stockInt,
+      title,
+      priceInt,
+      sellerEmail,
+      photoURL,
+    };
+    const token = localStorage.getItem("accessToken");
+    axios
+      .post("http://localhost:4000/add-products", product, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
+
+    console.log(token);
   };
 
   return (
@@ -55,7 +85,8 @@ const AddProducts = () => {
                 <span className="label-text">Price</span>
               </label>
               <input
-                type="text"
+                type="number"
+                step={0.1}
                 placeholder="Price"
                 className="input input-bordered"
                 {...register("price", { required: true })}
@@ -71,7 +102,7 @@ const AddProducts = () => {
                 <span className="label-text">Stock</span>
               </label>
               <input
-                type="text"
+                type="number"
                 placeholder="Stock"
                 className="input input-bordered"
                 {...register("Stock", { required: true })}
@@ -100,17 +131,17 @@ const AddProducts = () => {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">Seller Email</span>
+                <span className="label-text">Image</span>
               </label>
               <input
                 type="text"
-                placeholder="Seller Email"
+                placeholder="Image URL"
                 className="input input-bordered"
-                {...register("SellerEmail", { required: true })}
+                {...register("photoURL", { required: true })}
               />
-              {errors.SellerEmail && (
+              {errors.photoURL && (
                 <p className="text-red-500 font-bold">
-                  SellerEmail Field Is Required
+                  photoURL Field Is Required
                 </p>
               )}
             </div>
