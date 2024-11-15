@@ -9,7 +9,7 @@ const SellerRoute = ({ children }) => {
   const userData = useUserData();
   const location = useLocation();
 
-  if (loading) {
+  if (loading || !userData.role) {
     return <Loader />;
   }
   if (user && userData.role === "seller") {
