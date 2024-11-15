@@ -43,11 +43,11 @@ const Sidebar = () => {
               className="py-2 px-4 text-start border-2 rounded-md border-gray-300 bg-white hover:bg-black/10 transition-colors delay-150"
             >
               <NavLink
-                className={"flex items-center gap-3 text-xl font-bold"}
+                className={"flex items-center gap-3  font-bold"}
                 to={route.route}
               >
-                <>{route.icon}</>
-                {route.title}
+                <span className="text-xl font-bold">{route.icon}</span>
+                <span className="">{route.title}</span>
               </NavLink>
             </li>
           ))}
@@ -60,7 +60,7 @@ const Sidebar = () => {
             Home
           </NavLink>
         </li>
-        <li className="py-2 px-4 text-start border-2 rounded-md border-gray-300 bg-white hover:bg-black/10 transition-colors delay-150">
+        <li className="py-2  px-4 text-start border-2 rounded-md border-gray-300 bg-white hover:bg-black/10 transition-colors delay-150">
           <button className={"flex items-center gap-3 text-xl font-bold"}>
             <IoLogOutOutline />
             Logout
