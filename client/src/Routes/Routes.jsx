@@ -7,6 +7,8 @@ import Contact from "../pages/Contact";
 import Login from "../pages/Authentication/Login";
 import Register from "../pages/Authentication/Register";
 import DashboardLayout from "../layouts/DashboardLayout";
+import PrivateRoute from "./Private/PrivateRoute";
+import Overview from "../pages/Dashboard/Overview";
 
 const router = createBrowserRouter([
   {
@@ -41,12 +43,17 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
-    // children: [
-    //   {
-    //     path: "/home",
-    //   },
-    // ],
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "/dashboard/overview",
+        element: <Overview />,
+      },
+    ],
   },
 ]);
 
