@@ -42,6 +42,13 @@ async function dbConnect() {
       res.send({ token });
     });
 
+    // FIND A USER
+    app.get("/user/:email", async (req, res) => {
+      const query = { email: req.params.email };
+      const result = await userCollection.findOne(query);
+      res.send(result);
+    });
+
     // INSERT USER
     app.post("/users", async (req, res) => {
       const user = req.body;
