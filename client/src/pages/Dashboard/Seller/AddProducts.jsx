@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const AddProducts = () => {
   const { user } = useAuth();
@@ -35,6 +36,15 @@ const AddProducts = () => {
         },
       })
       .then((res) => {
+        if (res.data?.insertedId) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Product added succesfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
         console.log(res.data);
       });
   };
