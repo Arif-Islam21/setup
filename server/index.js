@@ -13,7 +13,7 @@ app.use(express.json());
 
 // TOKEN VERIFICATION
 const verifyToken = (req, res, next) => {
-  const authorization = req.header.authorization;
+  const authorization = req.headers.authorization;
   if (!authorization) {
     return res.send({ message: "No Token Found" });
   }

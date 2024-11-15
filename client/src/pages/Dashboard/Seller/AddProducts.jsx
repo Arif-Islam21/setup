@@ -37,8 +37,6 @@ const AddProducts = () => {
       .then((res) => {
         console.log(res.data);
       });
-
-    console.log(token);
   };
 
   return (
