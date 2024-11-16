@@ -31,10 +31,14 @@ const ProductCard = ({ product }) => {
             <MdOutlineEventAvailable size={20} /> {product?.stockInt}
           </p>
           <p className="justify-end flex items-center gap-2">
-            <BiSolidCategoryAlt size={20} /> {product?.stockInt}
+            <BiSolidCategoryAlt size={20} /> {product?.Category}
           </p>
         </div>
-        <p className="font-bold text-sm">{product?.description}</p>
+        <p className="font-bold text-sm">
+          {product?.description.length > 50
+            ? `${product?.description.slice(0, 50)}...`
+            : product?.description}{" "}
+        </p>
       </div>
     </div>
   );
