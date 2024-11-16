@@ -1,9 +1,10 @@
 import { FaSearch } from "react-icons/fa";
 
-const SearchBar = () => {
+// eslint-disable-next-line react/prop-types
+const SearchBar = ({ handleSearch }) => {
   return (
     <div>
-      <form className="flex items-center">
+      <form onSubmit={handleSearch} className="flex items-center">
         <input
           type="text"
           placeholder="Search Products"

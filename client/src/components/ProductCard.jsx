@@ -5,7 +5,6 @@ import { IoPricetagsOutline } from "react-icons/io5";
 
 /* eslint-disable react/prop-types */
 const ProductCard = ({ product }) => {
-  // console.log(product);
   return (
     <div className="card bg-base-100 shadow-xl">
       <figure>

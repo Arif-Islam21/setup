@@ -10,6 +10,9 @@ import ProductCard from "../components/ProductCard";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("asc");
+  console.log(sort);
 
   useEffect(() => {
     setLoading(true);
@@ -23,13 +26,19 @@ const Products = () => {
     fetch();
   }, []);
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearch(e.target.search.value);
+    e.target.search.value = "";
+  };
+
   return (
     <div className="container mx-auto">
       <h1 className="my-6 text-3xl font-bold text-center">All Products</h1>
       {/* SEARCHING AND SORTING */}
       <div className="flex flex-col lg:flex-row justify-between items-center mb-6">
-        <SearchBar />
-        <SortByPrice />
+        <SearchBar handleSearch={handleSearch} />
+        <SortByPrice setSort={setSort} />
       </div>
       {/* CONTENT GOES HERE */}
       <div className="grid grid-cols-12">
