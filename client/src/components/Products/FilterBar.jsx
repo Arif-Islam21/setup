@@ -10,8 +10,11 @@ const FilterBar = () => {
       </div>
       <div className="mt-4">
         <div className="my-3">
-          <select className="select select-bordered w-full max-w-xs">
-            <option disabled selected>
+          <select
+            className="select select-bordered w-full max-w-xs"
+            defaultValue={"selectedItem"}
+          >
+            <option disabled value={"selectedItem"}>
               Who shot first?
             </option>
             <option value={"asc"}>Low To High</option>
@@ -19,8 +22,11 @@ const FilterBar = () => {
           </select>
         </div>
         <div className="my-3">
-          <select className="select select-bordered w-full max-w-xs">
-            <option disabled selected>
+          <select
+            className="select select-bordered w-full max-w-xs"
+            defaultValue={"selectedItem"}
+          >
+            <option disabled value={"selectedItem"}>
               Who shot first?
             </option>
             <option value={"asc"}>Low To High</option>
