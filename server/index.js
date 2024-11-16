@@ -94,6 +94,31 @@ async function dbConnect() {
       const result = await productsCollection.insertOne(product);
       res.send(result);
     });
+    // GET PRODUCTS
+    app.get("/all-products", async (req, res) => {
+      // SEARCH BY NAME
+      // SORT BY--PRICE, CATEGORY, BRAND
+      const { title, sort, category, brand } = req.query;
+
+      const query = {};
+      if (title) {
+        query.title = { $regex: title, $options: "i" };
+      }
+      if (category) {
+        query.category = { $regex: category, $options: "i" };
+      }
+      if (brand) {
+        query.brand = brand;
+      }
+      const sortOpotion = sort === "asc" ? 1 : -1;
+
+      const products = await productsCollection
+        .find(query)
+        .sort({ price: sortOpotion })
+        .toArray();
+
+      res.json(products);
+    });
 
     // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
