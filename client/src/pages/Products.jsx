@@ -12,7 +12,9 @@ const Products = () => {
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("asc");
-  console.log(sort);
+  const [brand, setBrand] = useState("");
+  const [category, setCategory] = useState("");
+  console.log({ brand, category, sort });
 
   useEffect(() => {
     setLoading(true);
@@ -32,6 +34,14 @@ const Products = () => {
     e.target.search.value = "";
   };
 
+  const handleReset = () => {
+    setSearch("");
+    setSort("asc");
+    setBrand("");
+    setCategory("");
+    window.location.reload();
+  };
+
   return (
     <div className="container mx-auto">
       <h1 className="my-6 text-3xl font-bold text-center">All Products</h1>
@@ -43,7 +53,11 @@ const Products = () => {
       {/* CONTENT GOES HERE */}
       <div className="grid grid-cols-12">
         <div className="col-span-2">
-          <FilterBar />
+          <FilterBar
+            setBrand={setBrand}
+            handleReset={handleReset}
+            setCategory={setCategory}
+          />
         </div>
         <div className="col-span-10">
           {/* PRODUCTS */}

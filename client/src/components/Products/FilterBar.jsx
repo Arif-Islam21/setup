@@ -1,7 +1,8 @@
 import { FiFilter } from "react-icons/fi";
 import { MdLockReset } from "react-icons/md";
 
-const FilterBar = () => {
+// eslint-disable-next-line react/prop-types
+const FilterBar = ({ setCategory, setBrand, handleReset }) => {
   return (
     <div className="bg-gray-200 rounded-t-md shadow-xl p-4 min-h-screen">
       <div className="flex items-center gap-4">
@@ -13,28 +14,30 @@ const FilterBar = () => {
           <select
             className="select select-bordered w-full max-w-xs"
             defaultValue={"selectedItem"}
+            onChange={(e) => setCategory(e.target.value)}
           >
             <option disabled value={"selectedItem"}>
-              Who shot first?
+              Category
             </option>
-            <option value={"asc"}>Low To High</option>
-            <option value={"desc"}>High To Low</option>
+            <option>Low To High</option>
+            <option>High To Low</option>
           </select>
         </div>
         <div className="my-3">
           <select
             className="select select-bordered w-full max-w-xs"
             defaultValue={"selectedItem"}
+            onChange={(e) => setBrand(e.target.value)}
           >
             <option disabled value={"selectedItem"}>
-              Who shot first?
+              Brand
             </option>
-            <option value={"asc"}>Low To High</option>
-            <option value={"desc"}>High To Low</option>
+            <option>Low To High</option>
+            <option>High To Low</option>
           </select>
         </div>
       </div>
-      <button className="btn btn-block btn-outline">
+      <button onClick={handleReset} className="btn btn-block btn-outline">
         Reset <MdLockReset size={24} />
       </button>
     </div>
