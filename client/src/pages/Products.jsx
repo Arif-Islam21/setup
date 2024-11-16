@@ -1,3 +1,4 @@
+import FilterBar from "../components/Products/FilterBar";
 import SearchBar from "../components/SearchBar";
 import SortByPrice from "../components/SortByPrice";
 
@@ -12,7 +13,9 @@ const Products = () => {
       </div>
       {/* CONTENT GOES HERE */}
       <div className="grid grid-cols-12">
-        <div className="col-span-2">Filter Bar</div>
+        <div className="col-span-2">
+          <FilterBar />
+        </div>
         <div className="col-span-10">Products</div>
       </div>
     </div>
