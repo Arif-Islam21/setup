@@ -46,8 +46,8 @@ const Products = () => {
                 <NoProductPage />
               ) : (
                 <div className=" px-4 grid grid-cols-3 gap-4">
-                  {products.map((item) => (
-                    <ProductCard key={item._id} />
+                  {products.map((product) => (
+                    <ProductCard key={product._id} product={product} />
                   ))}
                 </div>
               )}
