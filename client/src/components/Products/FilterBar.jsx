@@ -4,7 +4,7 @@ import { MdLockReset } from "react-icons/md";
 // eslint-disable-next-line react/prop-types
 const FilterBar = ({ setCategory, setBrand, handleReset }) => {
   return (
-    <div className="bg-gray-200 rounded-t-md shadow-xl p-4 min-h-screen">
+    <div className="bg-gray-200 rounded-t-md shadow-xl p-4 h-full min-h-screen">
       <div className="flex items-center gap-4">
         <FiFilter size={24} />
         <h2 className="font-semibold text-xl">Filters</h2>
