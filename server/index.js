@@ -122,14 +122,14 @@ async function dbConnect() {
         .sort({ priceInt: sortOpotion })
         .toArray();
 
-      const productInfo = await productsCollection
-        .find({}, { projection: { Category: 1, brand: 1 } })
-        .toArray();
+      // const productInfo = await productsCollection
+      //   .find({}, { projection: { Category: 1, brand: 1 } })
+      //   .toArray();
 
       const totalProducts = await productsCollection.countDocuments(query);
 
-      const brands = [...new Set(productInfo.map((p) => p.brand))];
-      const categorys = [...new Set(productInfo.map((c) => c.Category))];
+      const brands = [...new Set(products.map((p) => p.brand))];
+      const categorys = [...new Set(products.map((c) => c.Category))];
 
       res.json({ products, brands, categorys, totalProducts });
     });

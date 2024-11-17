@@ -35,7 +35,7 @@ const Products = () => {
           setProducts(res?.data?.products);
           setUniquBrand(res?.data?.brands);
           setUniqeCategory(res?.data?.categorys);
-          setTotalPages(Math.ceil(res?.data?.totalProducts) / 9);
+          setTotalPages(Math.ceil(res?.data?.totalProducts / 9));
           setLoading(false);
           console.log(res.data);
         });
@@ -103,13 +103,21 @@ const Products = () => {
           )}
           {/* PAGINATION */}
           <div className="flex justify-center items-center gap-4 my-8">
-            <button onClick={() => handlePageChange(page - 1)}>
+            <button
+              disabled={page === 1}
+              className="btn btn-ghost"
+              onClick={() => handlePageChange(page - 1)}
+            >
               <FaRegArrowAltCircleLeft size={32} />
             </button>
             <p>
               Page {page} of {totalPages}
             </p>
-            <button onClick={() => handlePageChange(page + 1)}>
+            <button
+              disabled={page === totalPages}
+              className="btn btn-ghost"
+              onClick={() => handlePageChange(page + 1)}
+            >
               <FaRegArrowAltCircleRight size={32} />
             </button>
           </div>
