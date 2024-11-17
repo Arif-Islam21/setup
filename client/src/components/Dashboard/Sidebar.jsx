@@ -4,6 +4,7 @@ import { IoHomeOutline, IoLogOutOutline } from "react-icons/io5";
 import useUserData from "../../Hooks/useUserData";
 import { MdOutlineInventory2 } from "react-icons/md";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import { FaRegHeart } from "react-icons/fa6";
 
 const sellerRoutes = [
   {
@@ -17,6 +18,15 @@ const sellerRoutes = [
     route: "/dashboard/add-products",
     icon: <IoIosAddCircleOutline />,
     title: "Add Products",
+  },
+];
+
+const buyerRoutes = [
+  {
+    id: 1,
+    route: "/dashboard/wishlist",
+    icon: <FaRegHeart />,
+    title: "My WishList",
   },
 ];
 
@@ -38,6 +48,23 @@ const Sidebar = () => {
         </li>
         {UserData.role === "seller" &&
           sellerRoutes.map((route) => (
+            <li
+              key={route.id}
+              className="py-2 px-4 text-start border-2 rounded-md border-gray-300 bg-white hover:bg-black/10 transition-colors delay-150"
+            >
+              <NavLink
+                className={"flex items-center gap-3  font-bold"}
+                to={route.route}
+              >
+                <span className="text-xl font-bold">{route.icon}</span>
+                <span className="">{route.title}</span>
+              </NavLink>
+            </li>
+          ))}
+
+        {/* for buyer */}
+        {UserData.role === "buyer" &&
+          buyerRoutes.map((route) => (
             <li
               key={route.id}
               className="py-2 px-4 text-start border-2 rounded-md border-gray-300 bg-white hover:bg-black/10 transition-colors delay-150"

@@ -12,6 +12,8 @@ import Overview from "../pages/Dashboard/Overview";
 import MyProducts from "../pages/Dashboard/Seller/MyProducts";
 import SellerRoute from "./Private/SellerRoute";
 import AddProducts from "../pages/Dashboard/Seller/AddProducts";
+import BuyerRoute from "./Private/BuyerRoute";
+import MyWishlist from "../pages/Dashboard/buyer/MyWishlist";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +57,15 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/overview",
         element: <Overview />,
+      },
+      // BUYER ROUTES
+      {
+        path: "/dashboard/wishlist",
+        element: (
+          <BuyerRoute>
+            <MyWishlist />
+          </BuyerRoute>
+        ),
       },
       // SELLER ROUTES
       {

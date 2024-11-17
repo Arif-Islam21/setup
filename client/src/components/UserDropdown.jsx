@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
 import avater from "/user.png";
-import { MdOutlineShoppingCart } from "react-icons/md";
+import { FaRegHeart } from "react-icons/fa6";
 import useUserData from "../Hooks/useUserData";
 
 const UserDropdown = () => {
@@ -11,9 +11,9 @@ const UserDropdown = () => {
   return (
     <div className="flex items-center gap-4">
       <button className="btn">
-        <MdOutlineShoppingCart size={32} />
+        <FaRegHeart size={32} color="#FF00D3" />
         <div className="badge badge-secondary badge-outline">
-          {wishList.length}
+          {wishList?.length}
         </div>
       </button>
       <div className="dropdown dropdown-bottom dropdown-end">
