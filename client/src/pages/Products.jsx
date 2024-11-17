@@ -37,7 +37,7 @@ const Products = () => {
           setUniqeCategory(res?.data?.categorys);
           setTotalPages(Math.ceil(res?.data?.totalProducts / 9));
           setLoading(false);
-          console.log(res.data);
+          // console.log(res.data);
         });
     };
 

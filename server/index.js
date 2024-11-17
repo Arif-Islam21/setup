@@ -2,7 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 require("dotenv").config();
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -136,8 +136,14 @@ async function dbConnect() {
 
     // UPDATE WISHLIST AFTER ADDING TO CART
 
-    app.patch("/wishlist/add", verifyToken, async (req, res) => {
+    app.patch("/wishlist/add", async (req, res) => {
       const { userEmail, productId } = req.body;
+      const result = await userCollection.updateOne(
+        { email: userEmail },
+        { $addToSet: { wishList: new ObjectId(String(productId)) } }
+      );
+
+      res.send(result);
     });
 
     // Send a ping to confirm a successful connection

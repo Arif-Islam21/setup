@@ -2,9 +2,33 @@ import { MdOutlineEventAvailable } from "react-icons/md";
 import { BiSolidCategoryAlt } from "react-icons/bi";
 import { TbBrandAppgallery } from "react-icons/tb";
 import { IoPricetagsOutline } from "react-icons/io5";
+import useUserData from "../Hooks/useUserData";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 /* eslint-disable react/prop-types */
 const ProductCard = ({ product }) => {
+  const userData = useUserData();
+
+  const handleWishlist = async () => {
+    await axios
+      .patch(`http://localhost:4000/wishlist/add`, {
+        userEmail: userData?.email,
+        productId: product._id,
+      })
+      .then((res) => {
+        if (res?.data?.modifiedCount > 0) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Product added to your wishlist",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+  };
+
   return (
     <div className="card bg-base-100 shadow-xl">
       <figure>
@@ -38,7 +62,10 @@ const ProductCard = ({ product }) => {
             ? `${product?.description.slice(0, 50)}...`
             : product?.description}{" "}
         </p>
-        <button className="btn btn-outline btn-sm font-bold">
+        <button
+          onClick={handleWishlist}
+          className="btn btn-outline btn-sm font-bold"
+        >
           Add to wishlist
         </button>
       </div>
