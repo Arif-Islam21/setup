@@ -1,8 +1,14 @@
+/* eslint-disable react/prop-types */
 import { FiFilter } from "react-icons/fi";
 import { MdLockReset } from "react-icons/md";
 
-// eslint-disable-next-line react/prop-types
-const FilterBar = ({ setCategory, setBrand, handleReset }) => {
+const FilterBar = ({
+  setCategory,
+  setBrand,
+  handleReset,
+  uniqueCategory,
+  uniqueBrand,
+}) => {
   return (
     <div className="bg-gray-200 rounded-t-md shadow-xl p-4 h-full min-h-screen">
       <div className="flex items-center gap-4">
@@ -19,8 +25,11 @@ const FilterBar = ({ setCategory, setBrand, handleReset }) => {
             <option disabled value={"selectedItem"}>
               Category
             </option>
-            <option>Low To High</option>
-            <option>High To Low</option>
+            {uniqueCategory?.map((category, idx) => (
+              <option key={idx} value={category}>
+                {category}
+              </option>
+            ))}
           </select>
         </div>
         <div className="my-3">
@@ -32,8 +41,11 @@ const FilterBar = ({ setCategory, setBrand, handleReset }) => {
             <option disabled value={"selectedItem"}>
               Brand
             </option>
-            <option>Low To High</option>
-            <option>High To Low</option>
+            {uniqueBrand?.map((brand, idx) => (
+              <option key={idx} value={brand}>
+                {brand}
+              </option>
+            ))}
           </select>
         </div>
       </div>

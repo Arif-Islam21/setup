@@ -98,14 +98,14 @@ async function dbConnect() {
     app.get("/all-products", async (req, res) => {
       // SEARCH BY NAME
       // SORT BY--PRICE, CATEGORY, BRAND
-      const { title, sort, category, brand } = req.query;
+      const { title, sort, Category, brand } = req.query;
 
       const query = {};
       if (title) {
         query.title = { $regex: title, $options: "i" };
       }
-      if (category) {
-        query.category = { $regex: category, $options: "i" };
+      if (Category) {
+        query.Category = { $regex: Category, $options: "i" };
       }
       if (brand) {
         query.brand = brand;
@@ -118,13 +118,13 @@ async function dbConnect() {
         .toArray();
 
       const productInfo = await productsCollection
-        .find({}, { projection: { category: 1, brand: 1 } })
+        .find({}, { projection: { Category: 1, brand: 1 } })
         .toArray();
 
       const totalProducts = await productsCollection.countDocuments(query);
 
       const brands = [...new Set(productInfo.map((p) => p.brand))];
-      const categorys = [...new Set(productInfo.map((c) => c.brand))];
+      const categorys = [...new Set(productInfo.map((c) => c.Category))];
 
       res.json({ products, brands, categorys, totalProducts });
     });

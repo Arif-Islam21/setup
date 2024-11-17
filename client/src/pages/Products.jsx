@@ -15,6 +15,7 @@ const Products = () => {
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
   const [uniqueBrand, setUniquBrand] = useState([]);
+  const [uniqueCategory, setUniqeCategory] = useState([]);
   // console.log({ brand, category, sort });
 
   useEffect(() => {
@@ -22,12 +23,14 @@ const Products = () => {
     const fetch = async () => {
       await axios
         .get(
-          `http://localhost:4000/all-products?title=${search}&sort=${sort}&brand=${brand}&category=${category}`
+          `http://localhost:4000/all-products?title=${search}&sort=${sort}&brand=${brand}&Category=${category}`
         )
         .then((res) => {
           setProducts(res?.data?.products);
-          console.log(res.data);
+          setUniquBrand(res?.data?.brands);
+          setUniqeCategory(res?.data?.categorys);
           setLoading(false);
+          console.log(res.data);
         });
     };
 
@@ -63,6 +66,8 @@ const Products = () => {
             setBrand={setBrand}
             handleReset={handleReset}
             setCategory={setCategory}
+            uniqueBrand={uniqueBrand}
+            uniqueCategory={uniqueCategory}
           />
         </div>
         <div className="col-span-10">
