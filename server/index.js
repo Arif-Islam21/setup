@@ -117,7 +117,16 @@ async function dbConnect() {
         .sort({ price: sortOpotion })
         .toArray();
 
-      res.json(products);
+      const productInfo = await productsCollection
+        .find({}, { projection: { category: 1, brand: 1 } })
+        .toArray();
+
+      const totalProducts = await productsCollection.countDocuments(query);
+
+      const brands = [...new Set(productInfo.map((p) => p.brand))];
+      const categorys = [...new Set(productInfo.map((c) => c.brand))];
+
+      res.json({ products, brands, categorys, totalProducts });
     });
 
     // Send a ping to confirm a successful connection

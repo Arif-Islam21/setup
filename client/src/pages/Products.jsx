@@ -14,6 +14,7 @@ const Products = () => {
   const [sort, setSort] = useState("asc");
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
+  const [uniqueBrand, setUniquBrand] = useState([]);
   // console.log({ brand, category, sort });
 
   useEffect(() => {
@@ -24,7 +25,8 @@ const Products = () => {
           `http://localhost:4000/all-products?title=${search}&sort=${sort}&brand=${brand}&category=${category}`
         )
         .then((res) => {
-          setProducts(res.data);
+          setProducts(res?.data?.products);
+          console.log(res.data);
           setLoading(false);
         });
     };
