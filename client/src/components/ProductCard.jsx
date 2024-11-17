@@ -38,6 +38,9 @@ const ProductCard = ({ product }) => {
             ? `${product?.description.slice(0, 50)}...`
             : product?.description}{" "}
         </p>
+        <button className="btn btn-outline btn-sm font-bold">
+          Add to wishlist
+        </button>
       </div>
     </div>
   );

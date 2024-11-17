@@ -134,6 +134,12 @@ async function dbConnect() {
       res.json({ products, brands, categorys, totalProducts });
     });
 
+    // UPDATE WISHLIST AFTER ADDING TO CART
+
+    app.patch("/wishlist/add", verifyToken, async (req, res) => {
+      const { userEmail, productId } = req.body;
+    });
+
     // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
     console.log(

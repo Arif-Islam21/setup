@@ -15,8 +15,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    login(data.email, data.password);
-    navigate("/");
+    login(data.email, data.password).then(() => {
+      navigate("/");
+    });
   };
 
   return (
