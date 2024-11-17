@@ -6,6 +6,7 @@ import ProductCard from "../../../components/ProductCard";
 
 const MyWishlist = () => {
   const [wishList, setWishList] = useState([]);
+  const [latestData, setLatestData] = useState(true);
   const userData = useUserData();
   const token = localStorage.getItem("accessToken");
 
@@ -25,7 +26,7 @@ const MyWishlist = () => {
     if (userData._id && token) {
       fetchWishList();
     }
-  }, [token, userData._id]);
+  }, [token, userData._id, latestData]);
 
   return (
     <div>
@@ -33,7 +34,12 @@ const MyWishlist = () => {
       <div className="grid grid-cols-3 gap-4">
         {wishList.length > 0 ? (
           wishList.map((product) => (
-            <ProductCard key={product._id} product={product} isInWishlist />
+            <ProductCard
+              key={product._id}
+              product={product}
+              isInWishlist
+              setLatestData={setLatestData}
+            />
           ))
         ) : (
           <NoProductPage />

@@ -163,6 +163,17 @@ async function dbConnect() {
       res.send(wishList);
     });
 
+    // REMOVE FROM WISHLIST
+    app.patch("/wishlist/remove", async (req, res) => {
+      const { userEmail, productId } = req.body;
+      const result = await userCollection.updateOne(
+        { email: userEmail },
+        { $pull: { wishList: new ObjectId(String(productId)) } }
+      );
+
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
     console.log(
