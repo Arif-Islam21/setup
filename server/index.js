@@ -98,7 +98,10 @@ async function dbConnect() {
     app.get("/all-products", async (req, res) => {
       // SEARCH BY NAME
       // SORT BY--PRICE, CATEGORY, BRAND
-      const { title, sort, Category, brand } = req.query;
+      const { title, sort, Category, brand, page = 1, limit = 9 } = req.query;
+
+      const pageNum = Number(page);
+      const LimitNum = Number(limit);
 
       const query = {};
       if (title) {
@@ -114,6 +117,8 @@ async function dbConnect() {
 
       const products = await productsCollection
         .find(query)
+        .skip((pageNum - 1) * LimitNum)
+        .limit(LimitNum)
         .sort({ priceInt: sortOpotion })
         .toArray();
 

@@ -6,6 +6,10 @@ import axios from "axios";
 import Loader from "../components/Loader";
 import NoProductPage from "../components/NoProductPage";
 import ProductCard from "../components/ProductCard";
+import {
+  FaRegArrowAltCircleLeft,
+  FaRegArrowAltCircleRight,
+} from "react-icons/fa";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -16,6 +20,8 @@ const Products = () => {
   const [category, setCategory] = useState("");
   const [uniqueBrand, setUniquBrand] = useState([]);
   const [uniqueCategory, setUniqeCategory] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   // console.log({ brand, category, sort });
 
   useEffect(() => {
@@ -23,19 +29,20 @@ const Products = () => {
     const fetch = async () => {
       await axios
         .get(
-          `http://localhost:4000/all-products?title=${search}&sort=${sort}&brand=${brand}&Category=${category}`
+          `http://localhost:4000/all-products?title=${search}&page=${page}&limit=9&sort=${sort}&brand=${brand}&Category=${category}`
         )
         .then((res) => {
           setProducts(res?.data?.products);
           setUniquBrand(res?.data?.brands);
           setUniqeCategory(res?.data?.categorys);
+          setTotalPages(Math.ceil(res?.data?.totalProducts) / 9);
           setLoading(false);
           console.log(res.data);
         });
     };
 
     fetch();
-  }, [search, sort, brand, category]);
+  }, [search, sort, brand, category, page]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -49,6 +56,13 @@ const Products = () => {
     setBrand("");
     setCategory("");
     window.location.reload();
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setPage(newPage);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
   return (
@@ -87,6 +101,18 @@ const Products = () => {
               )}
             </>
           )}
+          {/* PAGINATION */}
+          <div className="flex justify-center items-center gap-4 my-8">
+            <button onClick={() => handlePageChange(page - 1)}>
+              <FaRegArrowAltCircleLeft size={32} />
+            </button>
+            <p>
+              Page {page} of {totalPages}
+            </p>
+            <button onClick={() => handlePageChange(page + 1)}>
+              <FaRegArrowAltCircleRight size={32} />
+            </button>
+          </div>
         </div>
       </div>
     </div>
