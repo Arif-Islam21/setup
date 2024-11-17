@@ -7,7 +7,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 /* eslint-disable react/prop-types */
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, isInWishlist }) => {
   const userData = useUserData();
 
   const handleWishlist = async () => {
@@ -62,12 +62,18 @@ const ProductCard = ({ product }) => {
             ? `${product?.description.slice(0, 50)}...`
             : product?.description}{" "}
         </p>
-        <button
-          onClick={handleWishlist}
-          className="btn btn-outline btn-sm font-bold"
-        >
-          Add to wishlist
-        </button>
+        {isInWishlist ? (
+          <button className="btn btn-outline btn-secondary btn-sm font-bold">
+            Remove from wishlist
+          </button>
+        ) : (
+          <button
+            onClick={handleWishlist}
+            className="btn btn-outline btn-sm font-bold"
+          >
+            Add to wishlist
+          </button>
+        )}
       </div>
     </div>
   );

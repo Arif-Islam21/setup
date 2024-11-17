@@ -135,7 +135,6 @@ async function dbConnect() {
     });
 
     // UPDATE WISHLIST AFTER ADDING TO CART
-
     app.patch("/wishlist/add", async (req, res) => {
       const { userEmail, productId } = req.body;
       const result = await userCollection.updateOne(
@@ -144,6 +143,24 @@ async function dbConnect() {
       );
 
       res.send(result);
+    });
+    // GET DATA FROM WISHLIST
+    app.get("/wishlist/:userId", verifyToken, async (req, res) => {
+      const userId = req.params.userId;
+      const user = await userCollection.findOne({
+        _id: new ObjectId(String(userId)),
+      });
+      if (!user) {
+        return res.send({ message: "User not found" });
+      }
+
+      const wishList = await productsCollection
+        .find({
+          _id: { $in: user.wishList || {} },
+        })
+        .toArray();
+
+      res.send(wishList);
     });
 
     // Send a ping to confirm a successful connection
