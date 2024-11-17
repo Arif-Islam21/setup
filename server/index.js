@@ -114,7 +114,7 @@ async function dbConnect() {
 
       const products = await productsCollection
         .find(query)
-        .sort({ price: sortOpotion })
+        .sort({ priceInt: sortOpotion })
         .toArray();
 
       const productInfo = await productsCollection
