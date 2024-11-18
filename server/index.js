@@ -174,6 +174,28 @@ async function dbConnect() {
       res.send(result);
     });
 
+    // GETTING ITEMS FOR FORYOU PAGE
+    app.get("/for-you", async (req, res) => {
+      const { search, category, brand, sorting } = req.query;
+      const query = {};
+      if (search) {
+        query.search = { $regex: search, $options: "i" };
+      }
+      if (category) {
+        query.category = { $regex: { title: category }, $options: "i" };
+      }
+      if (brand) {
+        query.brand = { $regex: brand, $options: "i" };
+      }
+      const sortOptions = sorting === "asc" ? 1 : -1;
+
+      const result = await productsCollection
+        .find(query)
+        .sort({ priceInt: sortOptions })
+        .toArray();
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
     console.log(
