@@ -5,6 +5,23 @@ import UserDropdown from "../UserDropdown";
 const Navbar = () => {
   const { user } = useAuth();
 
+  const links = (
+    <>
+      <li>
+        <NavLink to={"/"}>Home</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/products"}>Products</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/about"}>More Products</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/contacts"}>Contact Us</NavLink>
+      </li>
+    </>
+  );
+
   return (
     <div className="navbar container mx-auto">
       <div className="navbar-start">
@@ -29,31 +46,13 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
+            {links}
           </ul>
         </div>
         <a className=" text-2xl font-bold">Gadget Shop</a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu gap-2 menu-horizontal px-1">
-          <li>
-            <NavLink to={"/"}>Home</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/products"}>Products</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/about"}>About</NavLink>
-          </li>
-          <li>
-            <NavLink to={"/contacts"}>Contact Us</NavLink>
-          </li>
-        </ul>
+        <ul className="menu gap-2 menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
         {user ? (
