@@ -176,13 +176,13 @@ async function dbConnect() {
 
     // GETTING ITEMS FOR FORYOU PAGE
     app.get("/for-you", async (req, res) => {
-      const { search, category, brand, sorting } = req.query;
+      const { search, Category, brand, sorting } = req.query;
       const query = {};
       if (search) {
         query.search = { $regex: search, $options: "i" };
       }
-      if (category) {
-        query.category = { $regex: { title: category }, $options: "i" };
+      if (Category) {
+        query.category = { $regex: Category, $options: "i" };
       }
       if (brand) {
         query.brand = { $regex: brand, $options: "i" };

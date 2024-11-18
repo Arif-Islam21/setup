@@ -17,7 +17,7 @@ const About = () => {
     queryKey: ["for-you"],
     queryFn: async () => {
       const { data } = await axiosCommon.get(
-        `/for-you?search=${search}&category=${category}&brand=${brand}&sorting=${sorting}`
+        `/for-you?search=${search}&Category=${category}&brand=${brand}&sorting=${sorting}`
       );
       return data;
     },
@@ -63,7 +63,7 @@ const About = () => {
           defaultValue={"selected"}
           onChange={(e) => {
             setCategory(e.target.value);
-            refetch();
+            // refetch();
           }}
         >
           <option disabled value={"selected"}>
