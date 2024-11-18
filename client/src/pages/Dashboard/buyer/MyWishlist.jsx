@@ -19,6 +19,7 @@ const MyWishlist = () => {
         )
         .then((res) => {
           setWishList(res.data);
+          console.log(res.data);
         });
     };
 

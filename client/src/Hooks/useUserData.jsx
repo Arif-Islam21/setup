@@ -22,7 +22,7 @@ const useUserData = () => {
     if (user?.email && !loading) {
       fetchUserData();
     }
-  }, [user, loading]);
+  }, [user, loading, axiosCommon]);
 
   return userData;
 };
