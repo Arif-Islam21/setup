@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
 import { app } from "../FirebaseConfig/Firebase.config";
-import axios from "axios";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -10,6 +9,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import useAxiosCommon from "../Hooks/useAxiosCommon";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null);
@@ -21,6 +21,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
+  const axiosCommon = useAxiosCommon();
 
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -44,7 +45,7 @@ const AuthProvider = ({ children }) => {
       // setLoading(false);
       // console.log(currentUser);
       if (currentUser) {
-        axios
+        axiosCommon
           .post(`https://gadget-shop-server-steel.vercel.app/authentication`, {
             email: currentUser.email,
           })
@@ -63,7 +64,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       unSubscribe();
     };
-  }, []);
+  }, [axiosCommon]);
 
   const authInfo = {
     createUser,

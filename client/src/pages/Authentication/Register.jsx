@@ -2,11 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import GoogleLogin from "../../components/Authentications/GoogleLogin";
-import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosCommon from "../../Hooks/useAxiosCommon";
 
 const Register = () => {
   const { createUser } = useAuth();
+  const axiosCommon = useAxiosCommon();
 
   const {
     register,
@@ -24,7 +25,7 @@ const Register = () => {
     const userData = { email, role, status, wishList };
 
     createUser(data.email, data.password).then(() => {
-      axios
+      axiosCommon
         .post("https://gadget-shop-server-steel.vercel.app/users", userData)
         .then((res) => {
           if (res.data.insertedId) {

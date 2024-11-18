@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import useAuth from "./useAuth";
-import axios from "axios";
+import useAxiosCommon from "./useAxiosCommon";
 
 const useUserData = () => {
   const { user, loading } = useAuth();
   const [userData, setUserData] = useState([]);
+  const axiosCommon = useAxiosCommon();
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await axios.get(
+        const res = await axiosCommon.get(
           `https://gadget-shop-server-steel.vercel.app/user/${user.email}`
         );
         setUserData(res.data);

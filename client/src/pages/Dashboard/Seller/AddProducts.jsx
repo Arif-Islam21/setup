@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
-import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const AddProducts = () => {
   const { user } = useAuth();
@@ -10,6 +10,7 @@ const AddProducts = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const axiosSecure = useAxiosSecure();
 
   const onSubmit = (data) => {
     const { Category, Stock, photoURL, brand, description, price, title } =
@@ -28,17 +29,9 @@ const AddProducts = () => {
       sellerEmail,
       photoURL,
     };
-    const token = localStorage.getItem("accessToken");
-    axios
-      .post(
-        "https://gadget-shop-server-steel.vercel.app/add-products",
-        product,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+    // const token = localStorage.getItem("accessToken");
+    axiosSecure
+      .post("https://gadget-shop-server-steel.vercel.app/add-products", product)
       .then((res) => {
         if (res.data?.insertedId) {
           Swal.fire({

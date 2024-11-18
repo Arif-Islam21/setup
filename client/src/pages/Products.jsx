@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import FilterBar from "../components/Products/FilterBar";
 import SearchBar from "../components/SearchBar";
 import SortByPrice from "../components/SortByPrice";
-import axios from "axios";
 import Loader from "../components/Loader";
 import NoProductPage from "../components/NoProductPage";
 import ProductCard from "../components/ProductCard";
@@ -10,6 +9,7 @@ import {
   FaRegArrowAltCircleLeft,
   FaRegArrowAltCircleRight,
 } from "react-icons/fa";
+import useAxiosCommon from "../Hooks/useAxiosCommon";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -22,12 +22,13 @@ const Products = () => {
   const [uniqueCategory, setUniqeCategory] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const axiosCommon = useAxiosCommon();
   // console.log({ brand, category, sort });
 
   useEffect(() => {
     setLoading(true);
     const fetch = async () => {
-      await axios
+      await axiosCommon
         .get(
           `https://gadget-shop-server-steel.vercel.app/all-products?title=${search}&page=${page}&limit=9&sort=${sort}&brand=${brand}&Category=${category}`
         )

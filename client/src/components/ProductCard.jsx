@@ -3,15 +3,16 @@ import { BiSolidCategoryAlt } from "react-icons/bi";
 import { TbBrandAppgallery } from "react-icons/tb";
 import { IoPricetagsOutline } from "react-icons/io5";
 import useUserData from "../Hooks/useUserData";
-import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosCommon from "../Hooks/useAxiosCommon";
 
 /* eslint-disable react/prop-types */
 const ProductCard = ({ product, isInWishlist, setLatestData }) => {
   const userData = useUserData();
+  const axiosCommon = useAxiosCommon();
 
   const handleWishlist = async () => {
-    await axios
+    await axiosCommon
       .patch(`https://gadget-shop-server-steel.vercel.app/wishlist/add`, {
         userEmail: userData?.email,
         productId: product._id,
@@ -29,7 +30,7 @@ const ProductCard = ({ product, isInWishlist, setLatestData }) => {
       });
   };
   const handleRemoveWishlist = async () => {
-    await axios
+    await axiosCommon
       .patch(`https://gadget-shop-server-steel.vercel.app/wishlist/remove`, {
         userEmail: userData?.email,
         productId: product._id,
