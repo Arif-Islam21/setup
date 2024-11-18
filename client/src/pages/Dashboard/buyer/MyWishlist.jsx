@@ -13,11 +13,14 @@ const MyWishlist = () => {
   useEffect(() => {
     const fetchWishList = async () => {
       axios
-        .get(`http://localhost:4000/wishlist/${userData._id}`, {
-          headers: {
-            Authorization: `Bearar ${token}`,
-          },
-        })
+        .get(
+          `https://gadget-shop-server-steel.vercel.app/wishlist/${userData._id}`,
+          {
+            headers: {
+              Authorization: `Bearar ${token}`,
+            },
+          }
+        )
         .then((res) => {
           setWishList(res.data);
         });

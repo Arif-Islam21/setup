@@ -29,7 +29,7 @@ const Products = () => {
     const fetch = async () => {
       await axios
         .get(
-          `http://localhost:4000/all-products?title=${search}&page=${page}&limit=9&sort=${sort}&brand=${brand}&Category=${category}`
+          `https://gadget-shop-server-steel.vercel.app/all-products?title=${search}&page=${page}&limit=9&sort=${sort}&brand=${brand}&Category=${category}`
         )
         .then((res) => {
           setProducts(res?.data?.products);

@@ -12,7 +12,7 @@ const ProductCard = ({ product, isInWishlist, setLatestData }) => {
 
   const handleWishlist = async () => {
     await axios
-      .patch(`http://localhost:4000/wishlist/add`, {
+      .patch(`https://gadget-shop-server-steel.vercel.app/wishlist/add`, {
         userEmail: userData?.email,
         productId: product._id,
       })
@@ -30,7 +30,7 @@ const ProductCard = ({ product, isInWishlist, setLatestData }) => {
   };
   const handleRemoveWishlist = async () => {
     await axios
-      .patch(`http://localhost:4000/wishlist/remove`, {
+      .patch(`https://gadget-shop-server-steel.vercel.app/wishlist/remove`, {
         userEmail: userData?.email,
         productId: product._id,
       })

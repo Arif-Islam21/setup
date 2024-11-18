@@ -45,7 +45,7 @@ const AuthProvider = ({ children }) => {
       // console.log(currentUser);
       if (currentUser) {
         axios
-          .post(`http://localhost:4000/authentication`, {
+          .post(`https://gadget-shop-server-steel.vercel.app/authentication`, {
             email: currentUser.email,
           })
           .then((data) => {

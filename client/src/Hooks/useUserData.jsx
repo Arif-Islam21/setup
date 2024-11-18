@@ -9,7 +9,9 @@ const useUserData = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/user/${user.email}`);
+        const res = await axios.get(
+          `https://gadget-shop-server-steel.vercel.app/user/${user.email}`
+        );
         setUserData(res.data);
       } catch (error) {
         console.log(error);

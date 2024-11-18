@@ -24,18 +24,20 @@ const Register = () => {
     const userData = { email, role, status, wishList };
 
     createUser(data.email, data.password).then(() => {
-      axios.post("http://localhost:4000/users", userData).then((res) => {
-        if (res.data.insertedId) {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "User registered succesfully",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-          navigate("/");
-        }
-      });
+      axios
+        .post("https://gadget-shop-server-steel.vercel.app/users", userData)
+        .then((res) => {
+          if (res.data.insertedId) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "User registered succesfully",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            navigate("/");
+          }
+        });
     });
 
     // console.log(userData);

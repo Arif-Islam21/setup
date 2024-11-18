@@ -30,11 +30,15 @@ const AddProducts = () => {
     };
     const token = localStorage.getItem("accessToken");
     axios
-      .post("http://localhost:4000/add-products", product, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(
+        "https://gadget-shop-server-steel.vercel.app/add-products",
+        product,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         if (res.data?.insertedId) {
           Swal.fire({
