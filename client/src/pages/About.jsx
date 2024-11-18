@@ -7,7 +7,7 @@ const About = () => {
       <h1 className="text-2xl font-bold text-center my-4">
         Special Products for you
       </h1>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between my-4">
         <div className="join">
           <input
             type="text"
@@ -40,13 +40,10 @@ const About = () => {
         </select>
         <select
           className="select select-bordered w-full max-w-36"
-          defaultValue={"selected"}
+          defaultValue={"asc"}
         >
-          <option disabled value={"selected"}>
-            Price
-          </option>
-          <option>Han Solo</option>
-          <option>Greedo</option>
+          <option value={"asc"}>Low to high</option>
+          <option value={"des"}>High to low</option>
         </select>
         <button className="btn btn-outline">
           Reset <MdLockReset size={28} />
