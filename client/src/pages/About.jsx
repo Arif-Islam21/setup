@@ -14,7 +14,7 @@ const About = () => {
   const [brand, setBrand] = useState("");
   const [sorting, setSorting] = useState("asc");
 
-  const { data, isLoading } = useQuery({
+  const { data: productData = {}, isLoading } = useQuery({
     queryKey: ["for-you", search, category, brand, sorting],
     queryFn: async () => {
       const { data } = await axiosCommon.get(
@@ -23,8 +23,9 @@ const About = () => {
       return data;
     },
   });
-  const products = data.products;
 
+  const { products = [], totalProductCount = 0 } = productData;
+  console.log(products, totalProductCount);
   const handleSearch = (e) => {
     e.preventDefault();
     setSearch(e.target.search.value);
