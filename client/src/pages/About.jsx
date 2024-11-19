@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import ProductCard from "../components/ProductCard";
 import { useState } from "react";
 import { Form } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const About = () => {
   const axiosCommon = useAxiosCommon();
@@ -13,8 +14,8 @@ const About = () => {
   const [brand, setBrand] = useState("");
   const [sorting, setSorting] = useState("asc");
 
-  const { data: productsData = [], refetch } = useQuery({
-    queryKey: ["for-you"],
+  const { data, isLoading } = useQuery({
+    queryKey: ["for-you", search, category, brand, sorting],
     queryFn: async () => {
       const { data } = await axiosCommon.get(
         `/for-you?search=${search}&Category=${category}&brand=${brand}&sorting=${sorting}`
@@ -22,13 +23,12 @@ const About = () => {
       return data;
     },
   });
-
-  // console.log({ search, category, brand, sorting });
-  console.log(productsData);
+  const products = data.products;
 
   const handleSearch = (e) => {
     e.preventDefault();
     setSearch(e.target.search.value);
+    e.target.search.value = "";
   };
 
   const handleReset = () => {
@@ -36,6 +36,7 @@ const About = () => {
     setCategory("");
     setBrand("");
     setSorting("asc");
+    window.location.reload();
   };
 
   // console.log(data);
@@ -96,9 +97,11 @@ const About = () => {
         </button>
       </div>
       <div className="grid grid-cols-4 gap-4">
-        {productsData?.map((item) => (
-          <ProductCard key={item._id} product={item} />
-        ))}
+        {isLoading ? (
+          <Loader />
+        ) : (
+          products?.map((item) => <ProductCard key={item._id} product={item} />)
+        )}
       </div>
     </div>
   );

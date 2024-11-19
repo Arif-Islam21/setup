@@ -189,11 +189,14 @@ async function dbConnect() {
       }
       const sortOptions = sorting === "asc" ? 1 : -1;
 
-      const result = await productsCollection
+      const products = await productsCollection
         .find(query)
         .sort({ priceInt: sortOptions })
         .toArray();
-      res.send(result);
+
+      const totalProductCount = await productsCollection.countDocuments(query);
+
+      res.send({ products, totalProductCount });
     });
 
     // Send a ping to confirm a successful connection
