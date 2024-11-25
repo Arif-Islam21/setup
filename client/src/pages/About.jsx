@@ -18,7 +18,7 @@ const About = () => {
     queryKey: ["for-you", search, category, brand, sorting],
     queryFn: async () => {
       const { data } = await axiosCommon.get(
-        `/all-products?search=${search}&Category=${category}&brand=${brand}&sorting=${sorting}`
+        `/for-you?search=${search}&Category=${category}&brand=${brand}&sorting=${sorting}`
       );
       return data;
     },
